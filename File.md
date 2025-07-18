@@ -8,18 +8,16 @@ LOVE/                                # プロジェクトルート
 │   │   ├── main.py                  # トップページ・診断開始
 │   │   ├── survey.py                # アンケート入力フォーム
 │   │   └── result.py                # 結果表示・アドバイス
-│   ├── models/                      # ドメインロジック
-│   │   └── evaluation.py            # 名前画数・星座・血液型・AI評価の統合スコア計算
 │   ├── services/                    # 外部APIラッパー／ユーティリティ
 │   │   ├── firestore_client.py      # Firestore操作
 │   │   ├── openai_client.py         # OpenAI API呼び出し
 │   │   └── scoring.py               # 重み付けルール・ランダム要素
-│   ├── static/                      # 静的ファイル
+│   ├── static/                      # 静的ファイル　　　　←こうすけ
 │   │   ├── css/
 │   │   │   └── main.css
 │   │   ├── js/
 │   │   │   └── main.js
-│   └── templates/                   # HTMLテンプレート
+│   └── templates/                   # HTMLテンプレート.  ←こうすけ
 │       ├── base.html                # 共通レイアウト
 │       ├── survey.html              # アンケート画面
 │       ├── result.html              # 診断結果画面
@@ -36,5 +34,5 @@ LOVE/                                # プロジェクトルート
 │
 ├── .env                             # 環境変数（APIキー等：Git管理外）
 ├── requirements.txt                 # Python依存ライブラリ
-├── README.md                        # 概要・セットアップ手順・ER図解説
+├── README.md                        # 概要・セットアップ手順・ER図解説.  　　　←そうほ
 └──.gitignore                        # Git管理外ファイル設定

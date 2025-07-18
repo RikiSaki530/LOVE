@@ -19,7 +19,6 @@ LOVE/                                # プロジェクトルート
 │   │   │   └── main.css
 │   │   ├── js/
 │   │   │   └── main.js
-│   │   └── images/                  # アイコンや背景画像
 │   └── templates/                   # HTMLテンプレート
 │       ├── base.html                # 共通レイアウト
 │       ├── survey.html              # アンケート画面

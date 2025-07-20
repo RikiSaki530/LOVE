@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アンケート3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    /*
+        styles.css の内容は含まれていませんが、
+        以前の回答で提供済みのCSSを styles.css に記述してリンクしてください。
+        ここではメッセージ表示用のスタイルのみ記述します。
+        */
+
+        /* フォーム送信後のメッセージ表示エリアのスタイル */
+        #response-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none; /* 初期状態では非表示 */
+            text-align: center; /* メッセージを中央揃えに */
+            /* アニメーションを追加して、メッセージ表示をスムーズに */
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .success {
+            background-color: #e6ffe6; /* 薄い緑 */
+            color: #28a745; /* 濃い緑 */
+            border: 1px solid #28a745;
+        }
+
+        .error {
+            background-color: #ffe6e6; /* 薄い赤 */
+            color: #dc3545; /* 濃い赤 */
+            border: 1px solid #dc3545;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /*
+        styles.css の内容は含まれていませんが、
+        以前の回答で提供済みのCSSを styles.css に記述してリンクしてください。
+        ここではメッセージ表示用のスタイルのみ記述します。
+        */
+
+        /* フォーム送信後のメッセージ表示エリアのスタイル */
+        #response-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none; /* 初期状態では非表示 */
+            text-align: center; /* メッセージを中央揃えに */
+        }
+
+        .success {
+            background-color: #e6ffe6; /* 薄い緑 */
+            color: #28a745; /* 濃い緑 */
+            border: 1px solid #28a745;
+        }
+
+        .error {
+            background-color: #ffe6e6; /* 薄い赤 */
+            color: #dc3545; /* 濃い赤 */
+            border: 1px solid #dc3545;
+        }
+        textarea {
+            width: 100%; /* 親要素の幅いっぱいに広げる */
+            padding: 10px;
+            margin-bottom: 20px; /* 下に余白 */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* paddingとborderをwidthに含める */
+            font-size: 16px;
+            min-height: 150px; /* 最小の高さ */
+            resize: vertical; /* 縦方向のみリサイズ可能にする */
+        }
+    </style>
+<body>
+    <div class="container">
+
+    <h1 class="rounded-heading-1">好きぴとのやりとりは？</h1>
+            <form id="surveyForm" action="submit_survey.php" method="post">
+        
+        <p class="info-box">
+            <label for="message_box">やり取り内容:</label><br>
+            <textarea id="message_box" name="user_message" rows="8" cols="50" placeholder="ここにやり取りを入力してください"></textarea>
+        </p>
+        <input type="submit" value="回答を送信">
+        </form>
+        <div id="response-message"></div>
+        <hr>
+        <div class="button-group">
+            
+           
+
+            <a href="enquete2.html" class="btn btn-secondary">前の画面 　</a> 
+            <a href="result.html" class="btn btn-primary">診断結果へ</a> 
+        
+    </div>
+    <script>
+        // JavaScriptコードはHTMLの</body>タグの直前、または外部JSファイルに記述します
+
+        const surveyForm = document.getElementById('surveyForm'); // フォーム要素を取得
+        const responseMessage = document.getElementById('response-message'); // メッセージ表示エリアを取得
+
+        // フォームが送信されたときのイベントを監視
+        surveyForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // ★★重要！デフォルトのフォーム送信（画面遷移）をキャンセルする★★
+
+            // メッセージエリアを一旦クリアして非表示にする
+            responseMessage.style.display = 'none'; 
+            responseMessage.textContent = '';
+            responseMessage.className = ''; // クラスをリセット
+
+            // フォームのデータを FormData オブジェクトとして取得
+            const formData = new FormData(surveyForm);
+
+            try {
+                // Fetch APIを使って非同期でデータをサーバーに送信
+                const response = await fetch(surveyForm.action, {
+                    method: surveyForm.method, // フォームのmethod属性 (post) を使う
+                    body: formData, // フォームデータをリクエストボディに含める
+                });
+
+                // サーバーからのレスポンスをJSONとしてパース
+                // サーバーがJSONを返さない場合、response.json()はエラーになる可能性があるため注意
+                const result = await response.json(); 
+
+                // サーバーからの応答に基づいてメッセージを表示
+                if (response.ok) { // HTTPステータスコードが200番台の場合 (成功)
+                    responseMessage.textContent = '回答が正常に送信されました！';
+                    responseMessage.className = 'success'; // 成功スタイルを適用
+                    responseMessage.style.display = 'block'; // メッセージを表示
+
+                    surveyForm.reset(); // フォームの内容をクリアする
+                    // 必要であれば、回答送信後の追加アクションをここに記述
+                    // 例: 特定の要素を非表示にする、次のアンケートパートを動的に表示する、など
+                } else { // HTTPステータスコードがエラーの場合 (4xx, 5xxなど)
+                    responseMessage.textContent = `送信エラー: ${result.message || response.statusText || '不明なエラー'}`;
+                    responseMessage.className = 'error'; // エラースタイルを適用
+                    responseMessage.style.display = 'block'; // メッセージを表示
+                }
+
+            } catch (error) {
+                // ネットワークエラーなど、通信自体に問題があった場合
+                console.error('フォーム送信中にエラーが発生しました:', error);
+                responseMessage.textContent = '通信中にエラーが発生しました。もう一度お試しください。';
+                responseMessage.className = 'error';
+                responseMessage.style.display = 'block';
+            }
+        });
+    </script>
+
+</body>
+</html>

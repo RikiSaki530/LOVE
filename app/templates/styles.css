@@ -1,0 +1,124 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 40px;
+    background-color: #ffffff;
+}
+
+/* 方法1: 背景とパディングを使って角丸にする */
+h1.rounded-heading-1 {
+    background-color: #ffffff; /* 紫系の背景色 */
+    color: rgb(246, 127, 228); /* 文字色を白に */
+    padding: 13px 7px; /* 内側の余白 */
+    border-radius: 25px; /* 角丸の度合い */
+    display: inline-block; /* 内容物の幅に合わせる */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* 軽い影で立体感を出す */
+    margin-bottom: 30px;
+}
+
+/* 方法2: さらに丸く、楕円形に近づける */
+h1.rounded-heading-2 {
+    background-color: #39d9d1; /* 緑系の背景色 */
+    color: white;
+    padding: 18px 40px; /* パディングを増やして楕円に */
+    border-radius: 50px; /* より大きな値で楕円に */
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin-bottom: 30px;
+}
+
+/* 方法3: 円形に近づける (短いテキスト向け) */
+h1.circle-heading {
+    background-color: #ff6347; /* オレンジ系の背景色 */
+    color: rgb(249, 45, 45);
+    width: 120px; /* 幅と高さを同じにする */
+    height: 120px;
+    line-height: 120px; /* テキストを垂直中央に */
+    border-radius: 50%; /* 完全に円形 */
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-align: center; /* テキストを水平中央に */
+    font-size: 1.8em;
+    margin-bottom: 30px;
+}
+
+/* containerのスタイルも忘れずに移動しましょう */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #635b5b;
+    padding: 30px;
+    border-radius: 8px;
+    background-color: rgb(246, 105, 227); /* コンテナの背景を白に */
+    box-shadow: 0 12px 8px rgba(0, 0, 0, 0.1); /* 軽い影 */
+}
+
+button {
+    background-color: #ffffff;
+    color: rgb(18, 8, 8);
+    padding: 10px 20px;
+    border: 1px solid #635b5b;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+.info-box {
+    border: 2px solid #555; /* 2pxの太さで、実線の濃いグレーの枠線 */
+    padding: 20px; /* 枠の内側の余白 */
+    margin: 30px auto; /* 上下に30pxの余白、左右は自動で中央寄せ */
+    max-width: 500px; /* ボックスの最大幅 */
+    background-color: #f9f9f9; /* ボックスの背景色 */
+    border-radius: 8px; /* 少し角丸にする（オプション） */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 軽い影をつける（オプション） */
+    text-align: left; /* テキストを左寄せにする */
+}
+
+button:hover {
+    background-color: #ffcffa;
+}
+
+/* Button Container for Left/Right Alignment */
+.button-group {
+    display: flex; /* ボタンをFlexboxで並べる */
+    justify-content: space-between; /* 左右に均等に配置 */
+    align-items: center; /* 垂直方向の中央揃え */
+    margin-top: 30px; /* 上部に余白 */
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 30px; /* パディングを広げる */
+    border: none;
+    border-radius: 8px; /* 角を丸くする */
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 19px; /* フォントサイズを大きく */
+    font-weight: bold; /* 太字に */
+    line-height: 1;
+    white-space: nowrap;
+    transition: all 0.3s ease; /* transitionをallに */
+    margin: 8px; /* ボタン間の余白を広げる */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* ボタンにも影 */
+}
+
+.btn-primary {
+    background-color: #f6d4f5; /* 緑色 */
+    color: rgb(0, 0, 0);
+}
+
+.btn-primary:hover {
+    background-color:#d988e9;
+    transform: translateY(-2px); /* ホバーで少し浮き上がる */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary {
+    background-color: #f6d4f5; /* 赤色 */
+    color: rgb(0, 0, 0);
+}
+
+.btn-secondary:hover {
+    background-color: #d988e9;
+    transform: translateY(-2px); /* ホバーで少し浮き上がる */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}

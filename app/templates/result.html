@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>診断結果</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* styles.css の内容は含まれていませんが、共通のスタイルをリンクしてください。 */
+        /* 以下は result.html 専用のスタイル、またはstyles.cssに含めても良いです */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* 上部に寄せる */
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            margin-top: 50px; /* 上からの余白 */
+        }
+
+        .rounded-heading-1 {
+            background-color: #a7d9f7; /* 明るい青 */
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px; /* 角を丸くする */
+            display: inline-block; /* 幅を内容に合わせる */
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #result-display-area {
+            margin-top: 20px;
+            padding: 25px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: #fefefe;
+            text-align: center;
+        }
+
+        #result-display-area h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        #final-match-score {
+            font-size: 3.5em; /* より大きな数字 */
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #e74c3c; /* デフォルトの色 */
+        }
+
+        #final-advice-text {
+            font-size: 1.3em;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        #final-result-image {
+            max-width: 80%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 脈アリ度に応じた色の変化 */
+        .score-high { color: #ff1eda; } /* 高い脈アリ度 (緑系) */
+        .score-medium { color: #f49b3b; } /* 中程度の脈アリ度 (黄系) */
+        .score-low { color: #5e60bc; } /* 低い脈アリ度 (赤系) */
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="rounded-heading-1">診断結果発表！</h1>
+
+        <div id="result-display-area">
+            <h2>あなたの脈アリ度は...</h2>
+            <p id="final-match-score">--%</p>
+            <p id="final-advice-text">結果を読み込み中...</p>
+            <img id="final-result-image" src="" alt="診断結果の画像" style="display:none;">
+        </div>
+
+        <a href="start.html" class="btn btn-primary">最初に戻る</a>
+    </div>
+
+    <script>
+        // JavaScriptで結果を読み込み表示する
+        const finalMatchScoreElement = document.getElementById('final-match-score');
+        const finalAdviceTextElement = document.getElementById('final-advice-text');
+        const finalResultImageElement = document.getElementById('final-result-image');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const resultDataString = sessionStorage.getItem('surveyResult');
+
+            if (resultDataString) {
+                const result = JSON.parse(resultDataString);
+
+                if (result.match_score !== undefined && result.advice) {
+                    finalMatchScoreElement.textContent = `${result.match_score}%`;
+                    finalAdviceTextElement.textContent = result.advice;
+
+                    // 脈アリ度に応じたクラスを追加して色を変える
+                    finalMatchScoreElement.classList.remove('score-high', 'score-medium', 'score-low');
+                    if (result.match_score >= 70) {
+                        finalMatchScoreElement.classList.add('score-high');
+                    } else if (result.match_score >= 40) {
+                        finalMatchScoreElement.classList.add('score-medium');
+                    } else {
+                        finalMatchScoreElement.classList.add('score-low');
+                    }
+
+                   
+                } else {
+                    finalAdviceTextElement.textContent = '結果データを読み込めませんでした。';
+                }
+                sessionStorage.removeItem('surveyResult'); // 結果表示後はデータを削除
+            } else {
+                finalAdviceTextElement.textContent = 'アンケート結果が見つかりませんでした。最初からやり直してください。';
+            }
+        });
+    </script>
+</body>
+</html>

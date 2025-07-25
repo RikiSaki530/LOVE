@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>アンケート</title>
+    <title>アンケート1</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <style>
@@ -38,17 +38,22 @@
 <body>
     <div class="container">
 
-    <h1 class="rounded-heading-1">好きぴはどんな性格？</h1>
+    <h1 class="rounded-heading-1">好きぴはどんな返信性格？</h1>
+    
                         <!---actionのところにデータ送信される-->
     <form id="surveyForm" action="submit_survey.php" method="post">
         
         <p class="info-box">
-        <input type="radio" id="personality_chin" name="personality_type" value="ちん">
-        <label for="personality_chin">ちん</label><br>
-        <input type="radio" id="personality_un" name="personality_type" value="うん">
-        <label for="personality_un">うん</label><br>
-        <input type="radio" id="personality_sou" name="personality_type" value="そう">
-        <label for="personality_sou">そう</label><br><br>
+        <input type="radio" id="personality_haya" name="personality_type" value="5">
+        <label for="personality_chin">返信が常にはやい</label><br>
+        <input type="radio" id="personality_1h" name="personality_type" value="4">
+        <label for="personality_un">返信が1時間おきなど時間を空く</label><br>
+        <input type="radio" id="personality_1d" name="personality_type" value="3">
+        <label for="personality_sou">返信が日を跨ぐ</label><br>
+        <input type="radio" id="personality_kidoku" name="personality_type" value="2">
+        <label for="personality_sou">返信がなく既読で終わる</label><br>
+        <input type="radio" id="personality_midoku" name="personality_type" value="0">
+        <label for="personality_sou">未読無視</label><br>
         </p>
         <input type="submit" value="回答を送信">
         </form>
@@ -58,8 +63,8 @@
             
            
 
-            <a href="start.html" class="btn btn-secondary">前の画面</a> 
-            <a href="enquete2.html" class="btn btn-secondary">次の画面</a> 
+            <a href="start.html" class="btn btn-secondary">前の画面　</a> 
+            <a href="enquete2.html" class="btn btn-secondary">次の画面　</a> 
         
     
         </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>アンケート</title>
+    <title>アンケート2</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <style>
@@ -43,13 +43,31 @@
     <form id="surveyForm" action="submit_survey.php" method="post">
         
         <p class="info-box">
-        <input type="checkbox" id="personality_chin" name="personality_type[]" value="ちん">
-        <label for="personality_chin">ちん</label><br>
-        <input type="checkbox" id="personality_un" name="personality_type[]" value="うん">
-        <label for="personality_un">うん</label><br>
-        <input type="checkbox" id="personality_sou" name="personality_type[]" value="そう">
-        <label for="personality_sou">そう</label><br><br>
-        </p>
+        <input type="checkbox" id="personality_1" name="personality_type[]" value="1">
+        <label for="personality_1">相手からのメッセージ(DM/LINEなど)が先に届くことが多い</label><br>
+        <input type="checkbox" id="personality_2" name="personality_type[]" value="2">
+        <label for="personality_2">こちらのメッセージに対する返信が早いと感じる</label><br>
+        <input type="checkbox" id="personality_3" name="personality_type[]" value="3">
+        <label for="personality_3">雑談でも話題を広げようとしてくる</label><br>
+        <input type="checkbox" id="personality_4" name="personality_type[]" value="4">
+        <label for="personality_4">相手があなたの趣味や予定を詳しく知りたがる</label><br>
+        <input type="checkbox" id="personality_5" name="personality_type[]" value="5">
+        <label for="personality_5">過去に話した小さなエピソードを覚えていてくれる
+</label><br>
+        <input type="checkbox" id="personality_6" name="personality_type[]" value="6">
+        <label for="personality_6">忙しくてもあなたと過ごす/話す時間を確保しようとする
+</label><br>
+        <input type="checkbox" id="personality_7" name="personality_type[]" value="7">
+        <label for="personality_7">デートやイベントの誘い位に対して前向きな返事が返ってくる</label><br>
+        <input type="checkbox" id="personality_8" name="personality_type[]" value="8">
+        <label for="personality_8">共通の友人を介してあなたの近況を尋ねている様子がある
+</label><br>
+        <input type="checkbox" id="personality_9" name="personality_type[]" value="9">
+        <label for="personality_9">あなたの成功や嬉しい出来事に対し、誰よりも喜んでくれる</label><br>
+        <input type="checkbox" id="personality_10" name="personality_type[]" value="10">
+        <label for="personality_10">あなたの悩みや愚痴を真剣に聞き、励ましの言葉をくれる</label><br>
+    </p>
+
         <input type="submit" value="回答を送信">
         </form>
         <div id="response-message"></div>
@@ -58,8 +76,8 @@
             
            
 
-            <a href="enquete1.html" class="btn btn-secondary">前の画面</a> 
-            <a href="enquete3.html" class="btn btn-secondary">次の画面</a> 
+            <a href="enquete1.html" class="btn btn-secondary">前の画面　</a> 
+            <a href="enquete3.html" class="btn btn-secondary">次の画面　</a> 
         
     </div>
     <script>

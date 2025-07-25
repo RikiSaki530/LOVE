@@ -6,4 +6,4 @@ main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 def index():
-    return render_template('base.html')  # 例: スタートボタン付きトップ画面
+    return render_template('start.html')  # 例: スタートボタン付きトップ画面

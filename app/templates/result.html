@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>診断結果</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <style>
         /* styles.css の内容は含まれていませんが、共通のスタイルをリンクしてください。 */
         /* 以下は result.html 専用のスタイル、またはstyles.cssに含めても良いです */
@@ -98,7 +98,7 @@
             <img id="final-result-image" src="" alt="診断結果の画像" style="display:none;">
         </div>
 
-        <a href="start.html" class="btn btn-primary">最初に戻る</a>
+        <a href="start" class="btn btn-primary">最初に戻る</a>
     </div>
 
     <script>

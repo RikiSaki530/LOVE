@@ -5,8 +5,9 @@ from firebase_admin import credentials, firestore
 # --- Firestore Initialization ---
 # Get the absolute path to the directory of the current script
 current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(os.path.dirname(current_dir))
 # Construct the path to the service account key, assuming it's in the project root
-key_path = os.path.join(current_dir, '..', 'serviceAccountKey.json')
+key_path = os.path.join(project_root , 'serviceAccountKey.json')
 
 try:
     # Prevent re-initialization error

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>アンケート1</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <style>
         /*
@@ -63,8 +63,8 @@
             
            
 
-            <a href="start.html" class="btn btn-secondary">前の画面　</a> 
-            <a href="enquete2.html" class="btn btn-secondary">次の画面　</a> 
+            <a href="start" class="btn btn-secondary">前の画面</a> 
+            <a href="enquete2" class="btn btn-secondary">次の画面　</a> 
         
     
         </div>

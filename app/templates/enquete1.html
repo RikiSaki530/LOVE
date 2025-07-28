@@ -40,23 +40,24 @@
 
     <h1 class="rounded-heading-1">好きぴはどんな返信性格？</h1>
     
-                        <!---actionのところにデータ送信される-->
-    <form id="surveyForm" action="/submit_survey" method="post">
-        
-        <p class="info-box">
-        <input type="radio" id="personality_haya" name="personality_type" value="5">
-        <label for="personality_chin">返信が常にはやい</label><br>
-        <input type="radio" id="personality_1h" name="personality_type" value="4">
-        <label for="personality_un">返信が1時間おきなど時間を空く</label><br>
-        <input type="radio" id="personality_1d" name="personality_type" value="3">
-        <label for="personality_sou">返信が日を跨ぐ</label><br>
-        <input type="radio" id="personality_kidoku" name="personality_type" value="2">
-        <label for="personality_sou">返信がなく既読で終わる</label><br>
-        <input type="radio" id="personality_midoku" name="personality_type" value="0">
-        <label for="personality_sou">未読無視</label><br>
-        </p>
-        <input type="submit" value="回答を送信">
-        </form>
+        <!---actionのところにデータ送信される-->
+        <form id="surveyForm" action="{{ url_for('submit_survey') }}" method="post">
+
+            <input type="hidden" name="question_id[]" value="1">
+            <p class="info-box">
+                <input type="radio" id="personality_haya" name="score[0]" value="7">
+                <label for="personality_haya">返信が常にはやい</label><br>
+                <input type="radio" id="personality_1h" name="score[0]" value="5">
+                <label for="personality_1h">返信が1時間おきなど時間を空く</label><br>
+                <input type="radio" id="personality_1d" name="score[0]" value="3">
+                <label for="personality_1d">返信が日を跨ぐ</label><br>
+                <input type="radio" id="personality_kidoku" name="score[0]" value="2">
+                <label for="personality_kidoku">返信がなく既読で終わる</label><br>
+                <input type="radio" id="personality_midoku" name="score[0]" value="1">
+                <label for="personality_midoku">未読無視</label><br>
+            </p>
+            
+
         <div id="response-message"></div>
         <hr>
         <div class="button-group">
@@ -64,10 +65,10 @@
            
 
             <a href="start" class="btn btn-secondary">前の画面</a> 
-            <a href="enquete2" class="btn btn-secondary">次の画面　</a> 
-        
-    
+            <input type="submit" value="次の画面　" class="btn btn-primary">
+            
         </div>
+        </form>
     
     <script>
         // JavaScriptコードはHTMLの</body>タグの直前、または外部JSファイルに記述します
@@ -104,7 +105,8 @@
                     responseMessage.className = 'success'; // 成功スタイルを適用
                     responseMessage.style.display = 'block'; // メッセージを表示
 
-                    surveyForm.reset(); // フォームの内容をクリアする
+                    //surveyForm.reset(); // フォームの内容をクリアする
+                    window.location.href = "enquete2";  // ←★ここを追加！
                     // 必要であれば、回答送信後の追加アクションをここに記述
                     // 例: 特定の要素を非表示にする、次のアンケートパートを動的に表示する、など
                 } else { // HTTPステータスコードがエラーの場合 (4xx, 5xxなど)

@@ -39,47 +39,115 @@
     <div class="container">
 
     <h1 class="rounded-heading-1">好きぴとの進展度は？</h1>
-            <!---actionのところにデータ送信される-->
-    <form id="surveyForm" action="submit_survey.php" method="post">
-        
-        <p class="info-box">
-        <input type="checkbox" id="personality_1" name="personality_type[]" value="1">
-        <label for="personality_1">相手からのメッセージ(DM/LINEなど)が先に届くことが多い</label><br>
-        <input type="checkbox" id="personality_2" name="personality_type[]" value="2">
-        <label for="personality_2">こちらのメッセージに対する返信が早いと感じる</label><br>
-        <input type="checkbox" id="personality_3" name="personality_type[]" value="3">
-        <label for="personality_3">雑談でも話題を広げようとしてくる</label><br>
-        <input type="checkbox" id="personality_4" name="personality_type[]" value="4">
-        <label for="personality_4">相手があなたの趣味や予定を詳しく知りたがる</label><br>
-        <input type="checkbox" id="personality_5" name="personality_type[]" value="5">
-        <label for="personality_5">過去に話した小さなエピソードを覚えていてくれる
-</label><br>
-        <input type="checkbox" id="personality_6" name="personality_type[]" value="6">
-        <label for="personality_6">忙しくてもあなたと過ごす/話す時間を確保しようとする
-</label><br>
-        <input type="checkbox" id="personality_7" name="personality_type[]" value="7">
-        <label for="personality_7">デートやイベントの誘い位に対して前向きな返事が返ってくる</label><br>
-        <input type="checkbox" id="personality_8" name="personality_type[]" value="8">
-        <label for="personality_8">共通の友人を介してあなたの近況を尋ねている様子がある
-</label><br>
-        <input type="checkbox" id="personality_9" name="personality_type[]" value="9">
-        <label for="personality_9">あなたの成功や嬉しい出来事に対し、誰よりも喜んでくれる</label><br>
-        <input type="checkbox" id="personality_10" name="personality_type[]" value="10">
-        <label for="personality_10">あなたの悩みや愚痴を真剣に聞き、励ましの言葉をくれる</label><br>
-    </p>
+        <!---actionのところにデータ送信される-->
+        <form id="surveyForm" action="{{ url_for('submit_survey') }}" method="post">
 
-        <input type="submit" value="回答を送信">
-        </form>
+            <div class="score-explanation" style="margin-bottom: 1.5em;">
+                <span style="font-weight:bold;">【回答方法】</span>
+                <br>
+                5 = とてもそう思う　／　1 = まったくそう思わない
+            </div>
+
+            <!-- 2問目 -->
+            <input type="hidden" name="question_id[]" value="2">
+            <p class="info-box">
+                <label>相手からのメッセージ(DM/LINEなど)が先に届くことが多い</label><br>
+                <input type="radio" name="score[0]" value="7">5
+                <input type="radio" name="score[0]" value="5">4
+                <input type="radio" name="score[0]" value="3">3
+                <input type="radio" name="score[0]" value="2">2
+                <input type="radio" name="score[0]" value="1">1
+            </p>
+            <!-- 3問目 -->
+            <input type="hidden" name="question_id[]" value="3">
+            <p class="info-box">
+                <label>こちらのメッセージに対する返信が早いと感じる</label><br>
+                <input type="radio" name="score[1]" value="7">5
+                <input type="radio" name="score[1]" value="5">4
+                <input type="radio" name="score[1]" value="3">3
+                <input type="radio" name="score[1]" value="2">2
+                <input type="radio" name="score[1]" value="1">1
+            </p>
+            <!-- 4問目 -->
+            <input type="hidden" name="question_id[]" value="4">
+            <p class="info-box">雑談でも話題を広げようとしてくる</label><br>
+                <input type="radio" name="score[2]" value="7">5
+                <input type="radio" name="score[2]" value="5">4
+                <input type="radio" name="score[2]" value="3">3
+                <input type="radio" name="score[2]" value="2">2
+                <input type="radio" name="score[2]" value="1">1
+            </p>
+            <!-- 5問目 -->
+            <input type="hidden" name="question_id[]" value="5">
+            <p class="info-box">相手があなたの趣味や予定を詳しく知りたがる</label><br>
+                <input type="radio" name="score[3]" value="7">5
+                <input type="radio" name="score[3]" value="5">4
+                <input type="radio" name="score[3]" value="3">3
+                <input type="radio" name="score[3]" value="2">2
+                <input type="radio" name="score[3]" value="1">1
+            </p>
+            <!-- 6問目 -->
+            <input type="hidden" name="question_id[]" value="6">
+            <p class="info-box">過去に話した小さなエピソードを覚えていてくれる</label><br>
+                <input type="radio" name="score[4]" value="7">5
+                <input type="radio" name="score[4]" value="5">4
+                <input type="radio" name="score[4]" value="3">3
+                <input type="radio" name="score[4]" value="2">2
+                <input type="radio" name="score[4]" value="1">1
+            </p>
+            <!-- 7問目 -->
+            <input type="hidden" name="question_id[]" value="7">
+            <p class="info-box">忙しくてもあなたと過ごす/話す時間を確保しようとする</label><br>
+                <input type="radio" name="score[5]" value="7">5
+                <input type="radio" name="score[5]" value="5">4
+                <input type="radio" name="score[5]" value="3">3
+                <input type="radio" name="score[5]" value="2">2
+                <input type="radio" name="score[5]" value="1">1
+            </p>
+            <!-- 8問目 -->
+            <input type="hidden" name="question_id[]" value="8">
+            <p class="info-box">デートやイベントの誘い位に対して前向きな返事が返ってくる</label><br>
+                <input type="radio" name="score[6]" value="7">5
+                <input type="radio" name="score[6]" value="5">4
+                <input type="radio" name="score[6]" value="3">3
+                <input type="radio" name="score[6]" value="2">2
+                <input type="radio" name="score[6]" value="1">1
+            </p>
+            <!-- 9問目 -->
+            <input type="hidden" name="question_id[]" value="9">
+            <p class="info-box">共通の友人を介してあなたの近況を尋ねている様子がある</label><br>
+                <input type="radio" name="score[7]" value="7">5
+                <input type="radio" name="score[7]" value="5">4
+                <input type="radio" name="score[7]" value="3">3
+                <input type="radio" name="score[7]" value="2">2
+                <input type="radio" name="score[7]" value="1">1
+            </p>
+            <!-- 10問目 -->
+            <input type="hidden" name="question_id[]" value="10">
+            <p class="info-box">あなたの成功や嬉しい出来事に対し、誰よりも喜んでくれる</label><br>
+                <input type="radio" name="score[8]" value="7">5
+                <input type="radio" name="score[8]" value="5">4
+                <input type="radio" name="score[8]" value="3">3
+                <input type="radio" name="score[8]" value="2">2
+                <input type="radio" name="score[8]" value="1">1
+            </p>
+            <!-- 9問目 -->
+            <input type="hidden" name="question_id[]" value="11">
+            <p class="info-box">あなたの悩みや愚痴を真剣に聞き、励ましの言葉をくれる</label><br>
+                <input type="radio" name="score[9]" value="7">5
+                <input type="radio" name="score[9]" value="5">4
+                <input type="radio" name="score[9]" value="3">3
+                <input type="radio" name="score[9]" value="2">2
+                <input type="radio" name="score[9]" value="1">1
+            </p>
+
         <div id="response-message"></div>
         <hr>
         <div class="button-group">
-            
-           
-
             <a href="enquete1" class="btn btn-secondary">前の画面　</a> 
-            <a href="enquete3" class="btn btn-secondary">次の画面　</a> 
-        
-    </div>
+            <input type="submit" value="次の画面　" class="btn btn-primary">
+        </div>
+    </form>
     <script>
         // JavaScriptコードはHTMLの</body>タグの直前、または外部JSファイルに記述します
 
@@ -116,6 +184,7 @@
                     responseMessage.style.display = 'block'; // メッセージを表示
 
                     surveyForm.reset(); // フォームの内容をクリアする
+                    window.location.href = "enquete3";  // ←★ここを追加！
                     // 必要であれば、回答送信後の追加アクションをここに記述
                     // 例: 特定の要素を非表示にする、次のアンケートパートを動的に表示する、など
                 } else { // HTTPステータスコードがエラーの場合 (4xx, 5xxなど)

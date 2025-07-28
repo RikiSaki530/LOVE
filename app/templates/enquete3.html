@@ -84,14 +84,13 @@
     <div class="container">
 
     <h1 class="rounded-heading-1">好きぴとのやりとりは？</h1>
-            <form id="surveyForm" action="submit_survey.php" method="post">
+            <form id="surveyForm" action="{{ url_for('submit_message') }}" method="post">
         
         <p class="info-box">
             <label for="message_box">やり取り内容:</label><br>
             <textarea id="message_box" name="user_message" rows="8" cols="50" placeholder="ここにやり取りを入力してください"></textarea>
         </p>
-        <input type="submit" value="回答を送信">
-        </form>
+
         <div id="response-message"></div>
         <hr>
         <div class="button-group">
@@ -99,7 +98,8 @@
            
 
             <a href="enquete2" class="btn btn-secondary">前の画面 　</a> 
-            <a href="result" class="btn btn-primary">診断結果へ</a> 
+            <input type="submit" value="次の画面　" class="btn btn-primary" id="nextButton" >
+        </form>
         
     </div>
     <script>
@@ -138,6 +138,7 @@
                     responseMessage.style.display = 'block'; // メッセージを表示
 
                     surveyForm.reset(); // フォームの内容をクリアする
+                    window.location.href = "result";  // ←★ここを追加！
                     // 必要であれば、回答送信後の追加アクションをここに記述
                     // 例: 特定の要素を非表示にする、次のアンケートパートを動的に表示する、など
                 } else { // HTTPステータスコードがエラーの場合 (4xx, 5xxなど)

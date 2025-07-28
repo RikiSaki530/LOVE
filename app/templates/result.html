@@ -87,55 +87,19 @@
         
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1 class="rounded-heading-1">診断結果発表！</h1>
+    <body>
+        <div class="container">
+            <h1 class="rounded-heading-1">診断結果発表！</h1>
 
-        <div id="result-display-area">
-            <h2>あなたの脈アリ度は...</h2>
-            <p id="final-match-score">--%</p>
-            <p id="final-advice-text">結果を読み込み中...</p>
-            <img id="final-result-image" src="" alt="診断結果の画像" style="display:none;">
+            <div id="result-display-area">
+                <h2>あなたの脈アリ度は...</h2>
+                <p>{{total_score}}%</p>
+                <p>一言アドバイス：{{ advice }}</p>
+                <img id="final-result-image" src="" alt="診断結果の画像" style="display:none;">
+            </div>
+
+            <a href="start" class="btn btn-primary">最初に戻る</a>
         </div>
 
-        <a href="start" class="btn btn-primary">最初に戻る</a>
-    </div>
-
-    <script>
-        // JavaScriptで結果を読み込み表示する
-        const finalMatchScoreElement = document.getElementById('final-match-score');
-        const finalAdviceTextElement = document.getElementById('final-advice-text');
-        const finalResultImageElement = document.getElementById('final-result-image');
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const resultDataString = sessionStorage.getItem('surveyResult');
-
-            if (resultDataString) {
-                const result = JSON.parse(resultDataString);
-
-                if (result.match_score !== undefined && result.advice) {
-                    finalMatchScoreElement.textContent = `${result.match_score}%`;
-                    finalAdviceTextElement.textContent = result.advice;
-
-                    // 脈アリ度に応じたクラスを追加して色を変える
-                    finalMatchScoreElement.classList.remove('score-high', 'score-medium', 'score-low');
-                    if (result.match_score >= 70) {
-                        finalMatchScoreElement.classList.add('score-high');
-                    } else if (result.match_score >= 40) {
-                        finalMatchScoreElement.classList.add('score-medium');
-                    } else {
-                        finalMatchScoreElement.classList.add('score-low');
-                    }
-
-                   
-                } else {
-                    finalAdviceTextElement.textContent = '結果データを読み込めませんでした。';
-                }
-                sessionStorage.removeItem('surveyResult'); // 結果表示後はデータを削除
-            } else {
-                finalAdviceTextElement.textContent = 'アンケート結果が見つかりませんでした。最初からやり直してください。';
-            }
-        });
-    </script>
-</body>
+    </body>
 </html>

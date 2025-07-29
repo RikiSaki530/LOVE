@@ -12,16 +12,10 @@ GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-1.5-pro")  # "gemini-pro" か "
 def chat_with_gemini(prompt_str: str):
     print("[DEBUG] chat_with_gemini() called with prompt:", prompt_str)  # ←入口
     gemini_prompt = """
-    あなたはLOVELOVEチェッカーくんの恋愛マスターです。
-    ユーザからの入力に対して、評価してください。
-    点数は、0~30 内でつける。
-    相手にポジティブな印象を与えるアドバイスを一言添える。
-    出力は
-    {
-        "score": 点数,
-        "advice": アドバイス
-    }
-    の形式でJSONで出力してください。
+    "あなたはLOVELOVEチェッカーくんの恋愛マスターです。"
+    "入力された恋愛エピソードから相手との関係性を30点満点でスコア化し、簡潔なアドバイスを出力してください。"
+    "出力は**必ずPythonの辞書や文章形式ではなく、厳密なJSON**（ダブルクォートのみ）で、"
+    '{"score": 数値, "advice": "アドバイス"} の形で返してください。'
     """
 
     all_prompts = gemini_prompt + prompt_str

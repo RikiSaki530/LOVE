@@ -84,78 +84,54 @@
     <div class="container">
 
     <h1 class="rounded-heading-1">好きぴとのやりとりは？</h1>
-            <form id="surveyForm" action="{{ url_for('submit_message') }}" method="post">
-        
-        <p class="info-box">
-            <label for="message_box">やり取り内容:</label><br>
-            <textarea id="message_box" name="user_message" rows="8" cols="50" placeholder="ここにやり取りを入力してください"></textarea>
-        </p>
-
-        <div id="response-message"></div>
-        <hr>
-        <div class="button-group">
-            
-           
-
-            <a href="enquete2" class="btn btn-secondary">前の画面 　</a> 
-            <input type="submit" value="次の画面　" class="btn btn-primary" id="nextButton" >
-        </form>
-        
+           <form id="surveyForm" action="{{ url_for('submit_message') }}" method="post">
+    <p class="info-box">
+        <label for="message_box">やり取り内容:</label><br>
+        <textarea id="message_box" name="message_box" rows="8" cols="50" placeholder="ここにやり取りを入力してください"></textarea>
+    </p>
+    <div id="response-message"></div>
+    <hr>
+    <div class="button-group">
+        <a href="enquete2" class="btn btn-secondary">前の画面</a>
+        <input type="submit" value="次の画面" class="btn btn-primary" id="nextButton">
     </div>
-    <script>
-        // JavaScriptコードはHTMLの</body>タグの直前、または外部JSファイルに記述します
+</form>
+<script>
+const surveyForm = document.getElementById('surveyForm');
+const responseMessage = document.getElementById('response-message');
 
-        const surveyForm = document.getElementById('surveyForm'); // フォーム要素を取得
-        const responseMessage = document.getElementById('response-message'); // メッセージ表示エリアを取得
+surveyForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-        // フォームが送信されたときのイベントを監視
-        surveyForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); // ★★重要！デフォルトのフォーム送信（画面遷移）をキャンセルする★★
+    responseMessage.style.display = 'none'; 
+    responseMessage.textContent = '';
+    responseMessage.className = '';
 
-            // メッセージエリアを一旦クリアして非表示にする
-            responseMessage.style.display = 'none'; 
-            responseMessage.textContent = '';
-            responseMessage.className = ''; // クラスをリセット
+    const formData = new FormData(surveyForm);
 
-            // フォームのデータを FormData オブジェクトとして取得
-            const formData = new FormData(surveyForm);
-
-            try {
-                // Fetch APIを使って非同期でデータをサーバーに送信
-                const response = await fetch(surveyForm.action, {
-                    method: surveyForm.method, // フォームのmethod属性 (post) を使う
-                    body: formData, // フォームデータをリクエストボディに含める
-                });
-
-                // サーバーからのレスポンスをJSONとしてパース
-                // サーバーがJSONを返さない場合、response.json()はエラーになる可能性があるため注意
-                const result = await response.json(); 
-
-                // サーバーからの応答に基づいてメッセージを表示
-                if (response.ok) { // HTTPステータスコードが200番台の場合 (成功)
-                    responseMessage.textContent = '回答が正常に送信されました！';
-                    responseMessage.className = 'success'; // 成功スタイルを適用
-                    responseMessage.style.display = 'block'; // メッセージを表示
-
-                    surveyForm.reset(); // フォームの内容をクリアする
-                    window.location.href = "result";  // ←★ここを追加！
-                    // 必要であれば、回答送信後の追加アクションをここに記述
-                    // 例: 特定の要素を非表示にする、次のアンケートパートを動的に表示する、など
-                } else { // HTTPステータスコードがエラーの場合 (4xx, 5xxなど)
-                    responseMessage.textContent = `送信エラー: ${result.message || response.statusText || '不明なエラー'}`;
-                    responseMessage.className = 'error'; // エラースタイルを適用
-                    responseMessage.style.display = 'block'; // メッセージを表示
-                }
-
-            } catch (error) {
-                // ネットワークエラーなど、通信自体に問題があった場合
-                console.error('フォーム送信中にエラーが発生しました:', error);
-                responseMessage.textContent = '通信中にエラーが発生しました。もう一度お試しください。';
-                responseMessage.className = 'error';
-                responseMessage.style.display = 'block';
-            }
+    try {
+        const response = await fetch(surveyForm.action, {
+            method: surveyForm.method,
+            body: formData,
         });
-    </script>
+
+        const result = await response.json();
+
+        if (result.success && result.redirect) {
+            // AIから返答が来たら自動で画面遷移
+            window.location.href = result.redirect;
+        } else {
+            responseMessage.textContent = result.message || "AIの返答が取得できませんでした。";
+            responseMessage.className = 'error';
+            responseMessage.style.display = 'block';
+        }
+    } catch (error) {
+        responseMessage.textContent = '通信中にエラーが発生しました。もう一度お試しください。';
+        responseMessage.className = 'error';
+        responseMessage.style.display = 'block';
+    }
+});
+</script>
 
 </body>
 </html>

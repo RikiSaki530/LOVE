@@ -1,18 +1,16 @@
-from flask import Flask, render_template, request, jsonify
-from app.services.scoring import record_answer  # 今回は services 配下のモジュールなのでこのまま
-from app.services.scoring import get_total_score  # Firestoreに保存する関数
-from app.services.openai_client import chat_with_gemini  # Firestoreにメッセージを保存する関数
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
+from app.services.scoring import record_answer
+from app.services.openai_client import chat_with_gemini  # Gemini用
+from app.services.gemini import chat_with_openai         # OpenAI用
 
 app = Flask(__name__, template_folder='app/templates', static_folder='app/static')
+app.secret_key = 'my_secret_dev_key_2025_07_29'
 
-
-# ルーティングの設定
-
-from flask import redirect, url_for
+# ここで合計スコアをグローバルに管理
+total_score = 0
 
 @app.route('/')
 def index():
-    # ルート（/）にアクセスがあったら /start にリダイレクトする例
     return redirect(url_for('start'))
 
 @app.route('/start')
@@ -31,45 +29,38 @@ def enquete2():
 def enquete3():
     return render_template('enquete3.html')
 
-
-@app.route('/result')
-def result():
-    return render_template('result.html')
-
-
-
-
-# 問題をFirestoreに保存するためのエンドポイント 
+# 設問回答の保存・加算
 @app.route('/submit_survey', methods=['POST'])
 def submit_survey():
-    # 複数回答を受け取る（配列で取得）
+    global total_score
     question_ids = request.form.getlist('question_id[]')
     scores = []
-    # 送られてきたquestion_idの数だけscoreも拾う
     for i in range(len(question_ids)):
-        # 例: score[0], score[1], ... で取得
         score = request.form.get(f'score[{i}]')
         scores.append(score)
-        # Firestoreに保存
         record_answer(question_ids[i], int(score))
-
+        total_score += int(score)
     return jsonify({'success': True, 'message': '保存しました！'})
 
+# メッセージ送信＋AIスコア加算
 @app.route('/submit_message', methods=['POST'])
 def submit_message():
+    global total_score
     message = request.form.get('message_box')
     if not message:
         return jsonify({'success': False, 'message': '入力がありません'})
-    
-    score, advice = chat_with_gemini(message)
-    enquate_score = get_total_score()
-    total_score = enquate_score + score
+    score, advice = chat_with_openai(message)
+    if score is not None:
+        total_score += score
+    session['score'] = total_score
+    session['advice'] = advice
+    return jsonify({'success': True, 'redirect': '/result'})
 
-    # ここでresult.htmlに値を渡してページ遷移
-    return render_template('result.html', total_score=total_score, advice=advice)
-
-
-
+@app.route('/result')
+def result():
+    score = session.get('score', '')
+    advice = session.get('advice', '')
+    return render_template('result.html', total_score=score, advice=advice)
 
 if __name__ == "__main__":
-    app.run(debug=True)  # 必要ならport=5000やhost="0.0.0.0"も指定可
+    app.run(debug=True)

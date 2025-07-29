@@ -2,4 +2,4 @@
 package-lock.json
 package.json
 app/static/js/firebaceconfig.js
-serviceAccountKey.json
+serviceAccountKey.json.env

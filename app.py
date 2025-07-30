@@ -49,7 +49,7 @@ def submit_message():
     message = request.form.get('message_box')
     if not message:
         return jsonify({'success': False, 'message': '入力がありません'})
-    score, advice = chat_with_gemini(message)
+    score, advice = chat_with_openai(message)
     if score is not None:
         total_score += score
     session['score'] = total_score

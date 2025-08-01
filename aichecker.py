@@ -1,14 +1,13 @@
-import google.generativeai as genai
+import openai  # openai>=1.x
 from dotenv import load_dotenv
 import os
 
 load_dotenv()  # .envファイルを読み込む
+openai_api_key = os.getenv("OPENAI_API_KEY")
+client = openai.OpenAI(api_key=openai_api_key)
 
-gemini_API = os.getenv("gemini_API")
-
-genai.configure(api_key=gemini_API)
-  # 一般的な環境変数名に修正（小文字→大文字）
-
-model = genai.GenerativeModel("gemini-1.5-flash-latest")
-response = model.generate_content("好きなプログラミング言語は？")
-print(response.text)
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "好きなプログラミング言語は？"}]
+)
+print(response.choices[0].message.content)
